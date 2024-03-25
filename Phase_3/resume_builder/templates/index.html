@@ -1,0 +1,48 @@
+<!-- resume_builder.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.name }}'s Resume</title>
+</head>
+<body>
+    <h1>{{ user.name }}'s Resume</h1>
+
+    <h2>Education</h2>
+    {% for education in user.education_set.all %}
+        <h3>{{ education.institution_name }} - {{ education.degree }}</h3>
+        <p>{{ education.start_date }} - {% if education.end_date %}{{ education.end_date }}{% else %}Present{% endif %}</p>
+        <p>{{ education.description }}</p>
+    {% endfor %}
+
+    <h2>Experience</h2>
+    {% for experience in user.experience_set.all %}
+        <h3>{{ experience.company_name }} - {{ experience.job_title }}</h3>
+        <p>{{ experience.start_date }} - {% if experience.end_date %}{{ experience.end_date }}{% else %}Present{% endif %}</p>
+        <p>{{ experience.description }}</p>
+    {% endfor %}
+
+    <h2>Skills</h2>
+    <ul>
+        {% for skill in user.skill_set.all %}
+            <li>{{ skill.skill_name }} - {{ skill.skill_description }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Projects</h2>
+    <ul>
+        {% for project in user.project_set.all %}
+            <li>{{ project.project_name }} - {{ project.project_description }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Languages</h2>
+    <ul>
+        {% for language in user.language_set.all %}
+            <li>{{ language.language }} - Level: {{ language.language_level }} - Native: {% if language.is_native %}Yes{% else %}No{% endif %}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
